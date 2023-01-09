@@ -6,8 +6,10 @@
 
 Autor: Bryan Alexander Valverde Carbonel 
 
-Lenguaje: Asembler 
+Lenguaje: AMS - C
 
 Tarjeta: curiosity Nano PIC18F57Q84
+
+MPLAB X IDE v6.05
 
 
