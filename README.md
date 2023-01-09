@@ -2,7 +2,7 @@
 
 *Universidad Nacional de Piura*
 
-** Microcontroladores I **
+**Microcontroladores I**
 
 Autor: Bryan Alexander Valverde Carbonel 
 
