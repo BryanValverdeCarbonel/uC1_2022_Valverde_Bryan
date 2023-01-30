@@ -8,7 +8,7 @@ PSECT resectVect,class=CODE,reloc=2
 resectVect:
      GOTO Main
     
-; Vector de Interrupción de Baja Prioridad    
+;Vector de Interrupción de Baja Prioridad    
 PSECT ISRVectLowPriority, class=CODE,reloc=2
     
     BTFSS PIR1,0,0          ;Comprueba si se ha producido la interrupcion INT0
