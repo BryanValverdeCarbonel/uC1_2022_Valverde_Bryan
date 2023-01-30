@@ -5,41 +5,41 @@ PROCESSOR 18F57Q84
     
 ;Vector de Reset    
 PSECT resectVect,class=CODE,reloc=2
-resectVect
+resectVect:
      GOTO Main
     
-; Vector de Interrupci髇 de Baja Prioridad    
+; Vector de Interrupci贸n de Baja Prioridad    
 PSECT ISRVectLowPriority, class=CODE,reloc=2
     
     BTFSS PIR1,0,0          ;Comprueba si se ha producido la interrupcion INT0
     GOTO EXIT0		    ;Si no se ha producido, salta a Exit0
     BCF PIR1,0,0            ;Limpia el flag de INT0
-    GOTO Encend_Led	    ;Salta a la funci髇 Enced_Led
+    GOTO Encend_Led	    ;Salta a la funci贸n Enced_Led
 
-    EXIT0:		    ;La etiqueta para saltar si no se ha producido la interrupci髇 INT0
-    RETFIE		    ;Regresa a la interrupci髇
+    EXIT0:		    ;La etiqueta para saltar si no se ha producido la interrupci贸n INT0
+    RETFIE		    ;Regresa a la interrupci贸n
     
-; Vector de Interrupci髇 de Prioridad Alta 1    
+; Vector de Interrupci贸n de Prioridad Alta 1    
 PSECT ISRVectHigh1Priority, class=CODE,reloc=2
     
-    BTFSS PIR6,0,0          ;Comprueba si se ha producido la interrupci髇 INT1
-    GOTO EXIT1		    ;Si no se ha producido la interrupci髇 INT1, salta a EXIT1
+    BTFSS PIR6,0,0          ;Comprueba si se ha producido la interrupci贸n INT1
+    GOTO EXIT1		    ;Si no se ha producido la interrupci贸n INT1, salta a EXIT1
     
     BCF PIR6,0,0            ;Limpiam el flag de INT1
     CLRF    LATC,1	    ;Pone en cero el bit 1 del registro LATC.
     CALL Delay_250ms,1	    
-    CALL Delay_250ms,1	    ;Llama a la funci髇 de retardo de 250ms dos veces.
+    CALL Delay_250ms,1	    ;Llama a la funci贸n de retardo de 250ms dos veces.
      
-    EXIT1:		    ;La etiqueta para saltar si no se ha producido la interrupci髇 INT1.
+    EXIT1:		    ;La etiqueta para saltar si no se ha producido la interrupci贸n INT1.
     BCF PIR6,0,0            ;Limpiamos el flag de INT1
     RETFIE		    ;Regresa a la interrupcion 
 
-; Vector de Interrupci髇 de Prioridad Alta 2
+; Vector de Interrupci贸n de Prioridad Alta 2
 PSECT ISRVectHigh2Priority, class=CODE,reloc=2
     
-    BTFSS PIR10,0,0          ;縎e ha producido la INT2?
+    BTFSS PIR10,0,0          ;驴Se ha producido la INT2?
     GOTO EXIT2 
-    BCF PIR10,0,0            ;;Comprueba si se ha producido la interrupci髇 INT2
+    BCF PIR10,0,0            ;;Comprueba si se ha producido la interrupci贸n INT2
     
     EXIT2:
     RETFIE
@@ -51,7 +51,7 @@ PSECT udata_acs		    ;define tres variables: Offset, Counter1 y Counter2.
     Counter1: DS 1
     Counter2: DS 1
     
-; Secci髇 de c骴igo principal    
+; Secci贸n de c贸digo principal    
 PSECT CODE
  
  Main:			    ;llammado de varias funciones de configuracion 
@@ -67,7 +67,7 @@ Encend_Led:
 REPETICIONES:
     CALL Config_INT0,1
     MOVLW 0x05
-    MOVWF Counter2,0      ;Carga el contador2 con el n鷐ero de REPETICIONES
+    MOVWF Counter2,0      ;Carga el contador2 con el n煤mero de REPETICIONES
     GOTO Reload
  
 Dec_Counter2:
@@ -77,7 +77,7 @@ Dec_Counter2:
     
     Reload:
       MOVLW 0x0A
-      MOVWF Counter1,0  ;Carga el contador2 con el n鷐ero de OFFSETS
+      MOVWF Counter1,0  ;Carga el contador2 con el n煤mero de OFFSETS
       MOVLW 0x00
       MOVWF Offset,0   ;Definimos el valor de OFFSET inicial
 
@@ -192,13 +192,13 @@ Config_INT:
     
     ;Config de INT1
     BCF INTCON0,0,0   ;INTCON0<INT1EDG>=0   --- INT1 por flanco de bajada
-    BCF PIR6,0,0      ;PIR6<INT1IF>=0	    --- Limpiamos el flag de interupci髇
-    BSF PIE6,0,0      ;PIE6<INT1IE>=1	    --- Habilitamos la interrupci髇 ext1
+    BCF PIR6,0,0      ;PIR6<INT1IF>=0	    --- Limpiamos el flag de interupci贸n
+    BSF PIE6,0,0      ;PIE6<INT1IE>=1	    --- Habilitamos la interrupci贸n ext1
 
     ;Config de INT2
     BCF INTCON0,0,0   ;INTCON0<INT2EDG>=0   --- INT2 por flanco de bajada
-    BCF PIR10,0,0      ;PIR10<INT2IF>=0	    --- Limpiamos el flag de interupci髇
-    BSF PIE10,0,0      ;PIE10<INT2IE>=1	    ---	Habilitamos la interrupci髇 ext2
+    BCF PIR10,0,0      ;PIR10<INT2IF>=0	    --- Limpiamos el flag de interupci贸n
+    BSF PIE10,0,0      ;PIE10<INT2IE>=1	    ---	Habilitamos la interrupci贸n ext2
     
     BSF INTCON0,7,0   ;INTCON0<GIE/GIEH>=1  --- Habilitamos las interrupciones de forma global
     
@@ -214,8 +214,8 @@ Config_INT0:
     BCF IPR1,0,1      ;IPR1<INT0IP>=0   --- INT0 de baja prioridad
     BANKSEL IPR1
     BCF INTCON0,0,0   ;INTCON0<INT0EDG>=0 --- INT0 por flanco de bajada
-    BCF PIR1,0,0      ;PIR1<INT0IF>=0 --- Limpiamos el flag de interupci髇
-    BSF PIE1,0,0      ;PIE1<INT0IE>=1 ---Habilitamos la interrupci髇 ext0
+    BCF PIR1,0,0      ;PIR1<INT0IF>=0 --- Limpiamos el flag de interupci贸n
+    BSF PIE1,0,0      ;PIE1<INT0IE>=1 ---Habilitamos la interrupci贸n ext0
     BSF INTCON0,6,0   ;INTCON0<GIEL>=1 --- Habilitamos las interrupciones de baja prioridad
   
 
