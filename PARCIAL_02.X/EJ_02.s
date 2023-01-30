@@ -1,3 +1,12 @@
+;--------------------------------------
+    ;file:      Ej_02.s
+    ;@version:	MPLAB X IDE v6.05
+    ;@fecha:	2023/01/30
+    ;@descripción: "Ejercicio_02_Parcial_02"
+    ;@autor:	Bryan Alexander Valverde Carbonel
+;--------------------------------------
+
+
 PROCESSOR 18F57Q84
 #include "BitC.inc"
 #include <xc.inc>
