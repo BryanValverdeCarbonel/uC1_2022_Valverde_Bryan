@@ -8,7 +8,7 @@ PSECT resectVect,class=CODE,reloc=2
 resectVect:
      GOTO Main
     
-;Vector de Interrupción de Baja Prioridad    
+; Vector de Interrupción de Baja Prioridad    
 PSECT ISRVectLowPriority, class=CODE,reloc=2
     
     BTFSS PIR1,0,0          ;Comprueba si se ha producido la interrupcion INT0
@@ -76,49 +76,49 @@ Dec_Counter2:
     GOTO LED_OFF
     
     Reload:
-      MOVLW 0x0A
-      MOVWF Counter1,0  ;Carga el contador2 con el número de OFFSETS
-      MOVLW 0x00
-      MOVWF Offset,0   ;Definimos el valor de OFFSET inicial
+	MOVLW 0x0A
+	MOVWF Counter1,0  ;Carga el contador2 con el número de OFFSETS
+	MOVLW 0x00
+	MOVWF Offset,0   ;Definimos el valor de OFFSET inicial
 
         Loop:
-         BANKSEL PCLATU
-         MOVLW low highword(Table)
-         MOVWF PCLATU,1                ;Escribo el byte superior en PCLATU
-         MOVLW high(Table)  
-         MOVWF PCLATH,1                ;Escribo el byte alto en PCLTH
-         RLNCF Offset,0,0
-         CALL Table
-         MOVWF LATC,0
-         CALL Delay_250ms,1
-         DECFSZ Counter1,1,0
-         GOTO Next_seq 
-         GOTO LED1
+	    BANKSEL PCLATU
+	    MOVLW low highword(Table)
+	    MOVWF PCLATU,1                ;Escribo el byte superior en PCLATU
+	    MOVLW high(Table)  
+	     MOVWF PCLATH,1                ;Escribo el byte alto en PCLTH
+	    RLNCF Offset,0,0
+	    CALL Table
+	    MOVWF LATC,0
+	    CALL Delay_250ms,1
+	    DECFSZ Counter1,1,0
+	    GOTO Next_seq 
+	    GOTO LED1
      
         Table:
-         ADDWF   PCL,1,0
-         RETLW   10000001B	; offset: 0
-         RETLW   01000010B	; offset: 1
-         RETLW   00100100B	; offset: 2
-         RETLW   00011000B	; offset: 3
-         RETLW   00000000B	; offset: 4
-         RETLW   00011000B	; offset: 5
-         RETLW   00100100B	; offset: 6
-         RETLW   01000010B	; offset: 7
-         RETLW   10000001B	; offset: 8
-         RETLW   00000000B	; offset: 8
+	    ADDWF   PCL,1,0
+	    RETLW   10000001B	; offset: 0
+	    RETLW   01000010B	; offset: 1
+	    RETLW   00100100B	; offset: 2
+	    RETLW   00011000B	; offset: 3
+	    RETLW   00000000B	; offset: 4
+	    RETLW   00011000B	; offset: 5
+	    RETLW   00100100B	; offset: 6
+	    RETLW   01000010B	; offset: 7
+	    RETLW   10000001B	; offset: 8
+	     RETLW   00000000B	; offset: 8
    
         Next_seq:
-         INCF Offset,1,0
-         GOTO Loop
-     RETURN
+	    INCF Offset,1,0
+	     GOTO Loop
+    RETURN
      
-     LED1:
-	 GOTO Dec_Counter2
+    LED1:
+	GOTO Dec_Counter2
 RETURN
 	 
 LED_OFF:
-  CLRF    LATC,1
+    CLRF    LATC,1
 	 
   
 Config_osc:
@@ -183,6 +183,7 @@ Config_pps:
     RETURN
     
 Config_INT:
+    
     ;Config Prioridades
     BSF INTCON0,5,0	;INTCON0<IPEN>=1  --- Se habilita las prioridades
     BANKSEL IPR1
@@ -217,11 +218,6 @@ Config_INT0:
     BCF PIR1,0,0      ;PIR1<INT0IF>=0 --- Limpiamos el flag de interupción
     BSF PIE1,0,0      ;PIE1<INT0IE>=1 ---Habilitamos la interrupción ext0
     BSF INTCON0,6,0   ;INTCON0<GIEL>=1 --- Habilitamos las interrupciones de baja prioridad
-  
-
     RETURN
-
-
- 
  
 End resectVect
