@@ -201,7 +201,7 @@ Config_INT:
     
     
     ;Config de INT1
-    BCF INTCON0,0,0   ;INTCON0<INT1EDG>=0   --- INT1 por flanco de bajada
+    BCF INTCON0,0,0   ;INTCON0<INT1EDG>=0   --- INT1 por flanco de bajada.
     BCF PIR6,0,0      ;PIR6<INT1IF>=0	    --- Limpiamos el flag de interupción
     BSF PIE6,0,0      ;PIE6<INT1IE>=1	    --- Habilitamos la interrupción ext1
 
