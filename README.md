@@ -16,6 +16,12 @@ MPLAB X IDE v6.05
 
 
 
+
+
+
+
+
+
 **PARCIAL 2** 
 
 **EJERCICIO 2**
